@@ -57,7 +57,7 @@ const DB_DIR = process.env.DATABASE_DIR
   : path.resolve(process.cwd(), "data");
 const DB_FILE = path.join(DB_DIR, "database.json");
 
-const R2_BASE = "https://pub-ce8688bc6c654bcfb99716f7c9373bcd.r2.dev/fab-creations";
+const R2_BASE = "https://pub-ce8688bc6c654bcfb99716f7c9373bcd.r2.dev/vijay-jewellery";
 
 // Initial Seed Data (starts empty with no default hardcoded data)
 const defaultData: DatabaseData = {
@@ -212,7 +212,7 @@ export function getOrders(): Order[] {
 
 export function createOrder(orderData: Omit<Order, "id" | "orderNumber" | "createdAt">): Order {
   const db = getDb();
-  const orderNumber = `FC-${1000 + db.orders.length + 1}`;
+  const orderNumber = `VJ-${1000 + db.orders.length + 1}`;
   const newOrder: Order = {
     ...orderData,
     id: `ord-${Date.now()}`,

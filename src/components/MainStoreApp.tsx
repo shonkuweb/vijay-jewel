@@ -188,10 +188,7 @@ export default function MainStoreApp({
   };
 
   const handleSignOut = () => {
-    try {
-      localStorage.removeItem("fc_user_logged_in");
-    } catch {}
-    router.push("/");
+    goToHome();
   };
 
   // Render the active view smoothly within /home

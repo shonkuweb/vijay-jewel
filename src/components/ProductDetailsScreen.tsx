@@ -234,7 +234,7 @@ export default function ProductDetailsScreen({
         // ignore
       }
     }
-    setNotification(`Added ${quantity} ${product.name} to cart! (B2B Min: Rs 3000)`);
+    setNotification(`Added ${quantity} ${product.name} to cart!`);
     setTimeout(() => setNotification(null), 3000);
   };
 
@@ -316,7 +316,7 @@ export default function ProductDetailsScreen({
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
-          <span className="text-xs font-serif tracking-widest text-[#e5a93c] uppercase">Fab Creations</span>
+          <span className="text-xs font-serif tracking-widest text-[#e5a93c] uppercase">Vijay Jewellery</span>
           <button
             type="button"
             onClick={navCart}
@@ -420,7 +420,7 @@ export default function ProductDetailsScreen({
         {/* 3. Price & Stock Details */}
         <div className="w-full rounded-[20px] border border-[#222222] bg-[#0d0d0d] p-4 flex items-center justify-between shadow-sm">
           <div>
-            <span className="text-[#8e8e93] text-xs block mb-0.5">B2B Wholesale Price</span>
+            <span className="text-[#8e8e93] text-xs block mb-0.5">B2C Price</span>
             <div className="flex items-baseline gap-1.5">
               <span className="text-[#e5a93c] text-[26px] font-bold tracking-tight">
                 ₹{product.price}
@@ -480,10 +480,6 @@ export default function ProductDetailsScreen({
               <span>ADD TO CART</span>
             </button>
           </div>
-
-          <p className="text-[#8e8e93] text-[11.5px] text-center">
-            Wholesale minimum order requirement: ₹3,000 across cart.
-          </p>
         </div>
 
         {/* 5. Product Attributes Table */}
@@ -511,7 +507,7 @@ export default function ProductDetailsScreen({
           <div className="p-3 rounded-[16px] bg-[#0d0d0d] border border-[#202020] flex flex-col items-center">
             <ShieldCheck className="w-5 h-5 text-[#e5a93c] mb-1" />
             <span className="text-white text-[11px] font-medium">100% Authentic</span>
-            <span className="text-[#8e8e93] text-[9.5px]">Factory direct</span>
+            <span className="text-[#8e8e93] text-[9.5px]">Direct to customer</span>
           </div>
           <div className="p-3 rounded-[16px] bg-[#0d0d0d] border border-[#202020] flex flex-col items-center">
             <Sparkles className="w-5 h-5 text-[#e5a93c] mb-1" />
@@ -520,7 +516,7 @@ export default function ProductDetailsScreen({
           </div>
           <div className="p-3 rounded-[16px] bg-[#0d0d0d] border border-[#202020] flex flex-col items-center">
             <CreditCard className="w-5 h-5 text-[#e5a93c] mb-1" />
-            <span className="text-white text-[11px] font-medium">Secure B2B</span>
+            <span className="text-white text-[11px] font-medium">Secure B2C</span>
             <span className="text-[#8e8e93] text-[9.5px]">Verified orders</span>
           </div>
         </div>

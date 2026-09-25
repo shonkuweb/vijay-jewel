@@ -111,10 +111,6 @@ export default function CartScreen({
   const gst = Number((subtotal * 0.03).toFixed(1));
   const shipping = cart.length > 0 ? 125 : 0;
   const total = Number((subtotal + gst + shipping).toFixed(1));
-  const b2bMin = 3000;
-  const remaining = Math.max(0, b2bMin - subtotal);
-  const progressPercent = Math.min(100, Math.max(3, (subtotal / b2bMin) * 100));
-
   const toggleSelectItem = (id: string) => {
     setSelectedItems((prev) =>
       prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
@@ -155,11 +151,7 @@ export default function CartScreen({
   };
 
   const handleCheckout = async () => {
-    if (subtotal < b2bMin) {
-      setNotification(`Minimum B2B order is ₹3,000. Please add ₹${remaining} more.`);
-      setTimeout(() => setNotification(null), 3500);
-      return;
-    }
+    if (cart.length === 0) return;
 
     const activeMobile = userMobile || (typeof window !== "undefined" ? localStorage.getItem("fc_user_mobile") : null) || "6289417338";
 
@@ -218,7 +210,7 @@ export default function CartScreen({
         {/* Top Announcement Bar */}
         <div className="w-full -mx-4 py-2 bg-[#000000] border-b border-[#141414] text-center mb-3">
           <p className="text-[#e5a93c] text-[12.5px] font-medium tracking-wide">
-            B2B Minimum Order: Rs 3000
+            Vijay Jewellery · Exclusive B2C Collections
           </p>
         </div>
 
@@ -347,7 +339,7 @@ export default function CartScreen({
               Your Cart is Empty
             </h3>
             <p className="text-[#8e8e93] text-[13px] max-w-[260px] mb-6">
-              Add wholesale jewelry items to your cart to meet the ₹3,000 B2B minimum.
+              Explore our exquisite jewellery collections and add items to your cart.
             </p>
             <button
               type="button"
@@ -388,7 +380,7 @@ export default function CartScreen({
           </div>
         )}
 
-        {/* 3. B2B Shipping Information Box (Only if cart has items) */}
+        {/* 3. B2C Shipping Information Box (Only if cart has items) */}
         {cart.length > 0 && (
           <div className="w-full rounded-[18px] border border-[#4a3816] bg-[#140f07] p-3.5 mb-4 flex items-start gap-3 shadow-sm">
             <div className="w-8 h-8 rounded-full bg-[#1e170a] border border-[#e5a93c]/40 flex items-center justify-center text-[#e5a93c] shrink-0 mt-0.5">
@@ -396,56 +388,28 @@ export default function CartScreen({
             </div>
             <div className="flex-1">
               <h5 className="text-[#e5a93c] text-[13px] font-semibold mb-0.5">
-                B2B Shipping Information
+                B2C Shipping Information
               </h5>
               <p className="text-[#a8a8a8] text-[11.5px] leading-relaxed">
-                Standard B2B shipping is ₹125 for all orders. Free shipping on orders above ₹10,000. Orders are dispatched within 24-48 business hours with GST invoice.
+                Standard shipping is ₹125 for all orders. Free shipping on orders above ₹10,000. Orders are dispatched within 24-48 business hours with GST invoice.
               </p>
             </div>
           </div>
         )}
 
-        {/* 4. Minimum Order Progress Bar & Action (Only if cart has items) */}
+        {/* 4. Action (Only if cart has items) */}
         {cart.length > 0 && (
-          <div className="w-full bg-[#0d0d0d] border border-[#222222] rounded-[22px] p-4 sm:p-5 mb-4 shadow-md space-y-3.5">
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-[#8e8e93]">B2B Order Minimum Progress</span>
-                <span className="text-[#e5a93c] font-semibold">₹{subtotal} / ₹3,000</span>
-              </div>
-              <div className="w-full h-2 rounded-full bg-[#1c1c1c] overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-[#d99726] to-[#f5c767] rounded-full transition-all duration-300"
-                  style={{ width: `${progressPercent}%` }}
-                />
-              </div>
-              {subtotal < b2bMin ? (
-                <p className="text-[#8e8e93] text-[11.5px]">
-                  Add <span className="text-[#e5a93c] font-semibold">₹{remaining}</span> more to meet wholesale minimum.
-                </p>
-              ) : (
-                <p className="text-emerald-400 text-[11.5px] font-medium flex items-center gap-1">
-                  <Check className="w-3.5 h-3.5" />
-                  <span>Wholesale minimum met! Ready to order.</span>
-                </p>
-              )}
-            </div>
-
-            {/* Proceed to Checkout Button */}
+          <div className="w-full mb-4">
             <button
               type="button"
               onClick={handleCheckout}
               disabled={isCheckingOut}
-              className={`w-full h-[50px] rounded-[14px] font-semibold text-[14.5px] flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer ${
-                subtotal >= b2bMin
-                  ? "bg-[#f0a939] hover:bg-[#f5b842] active:scale-[0.99] text-[#111111]"
-                  : "bg-[#1c160c] border border-[#e5a93c]/50 text-[#e5a93c] hover:bg-[#e5a93c] hover:text-black"
-              }`}
+              className="w-full h-[52px] rounded-[16px] font-semibold text-[15px] flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer bg-gradient-to-r from-[#e5a93c] to-[#f5c767] hover:brightness-105 active:scale-[0.99] text-[#111111]"
             >
               {isCheckingOut ? (
                 <div className="flex items-center space-x-2">
                   <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                  <span>Placing B2B Order...</span>
+                  <span>Placing Order...</span>
                 </div>
               ) : (
                 <>

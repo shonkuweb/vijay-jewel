@@ -36,7 +36,7 @@ interface ShopScreenProps {
   onSignOut?: () => void;
 }
 
-const R2_BASE = "https://pub-ce8688bc6c654bcfb99716f7c9373bcd.r2.dev/fab-creations";
+const R2_BASE = "https://pub-ce8688bc6c654bcfb99716f7c9373bcd.r2.dev/vijay-jewellery";
 const LOGO_R2_URL = `${R2_BASE}/logo.png`;
 const HERO_R2_URL = `${R2_BASE}/hero-banner.jpg`;
 
@@ -188,7 +188,7 @@ export default function ShopScreen({
         // ignore
       }
     }
-    setNotification(`Added ${product.name} to cart! (B2B Min: Rs 3000)`);
+    setNotification(`Added ${product.name} to cart!`);
     setTimeout(() => setNotification(null), 3000);
   };
 
@@ -248,7 +248,7 @@ export default function ShopScreen({
         {/* Top Announcement Bar */}
         <div className="w-full py-2 bg-[#000000] border-b border-[#141414] text-center">
           <p className="text-[#e5a93c] text-[12.5px] font-medium tracking-wide">
-            B2B Minimum Order: Rs 3000
+            Vijay Jewellery · Exclusive B2C Collections
           </p>
         </div>
 
@@ -262,7 +262,7 @@ export default function ShopScreen({
           >
             <Image
               src={logoSrc}
-              alt="Fab Creations Logo"
+              alt="Vijay Jewellery Logo"
               width={56}
               height={56}
               priority
@@ -299,7 +299,7 @@ export default function ShopScreen({
           <div className="relative w-full h-[200px] rounded-[22px] overflow-hidden border border-[#222222] shadow-[0_8px_30px_rgba(0,0,0,0.85)]">
             <Image
               src={heroSrc}
-              alt="Designed for Every You - Fab Creations"
+              alt="Designed for Every You - Vijay Jewellery"
               fill
               priority
               unoptimized
@@ -315,10 +315,10 @@ export default function ShopScreen({
             <div className="absolute inset-0 p-5 flex flex-col justify-between z-10">
               <div className="space-y-1 max-w-[240px]">
                 <p className="text-[#e5a93c] text-[10px] font-semibold tracking-[0.2em] uppercase">
-                  WHOLESALE STORE
+                  CATALOGUE STORE
                 </p>
                 <h2 className="text-white text-[22px] font-serif font-normal leading-[1.2] tracking-tight">
-                  Premium B2B <br />
+                  Premium B2C <br />
                   Jewelry Catalog
                 </h2>
                 <p className="text-[#a8a8a8] text-[9.5px] tracking-[0.14em] uppercase pt-0.5">

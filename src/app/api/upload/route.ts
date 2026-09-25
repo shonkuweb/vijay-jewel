@@ -40,7 +40,7 @@ export async function POST(req: Request) {
     // Sanitize base name
     const rawName = file.name.substring(0, file.name.lastIndexOf(".")) || file.name;
     const cleanBase = rawName.replace(/[^a-zA-Z0-9_-]/g, "_");
-    const key = `fab-creations/products/${Date.now()}-${cleanBase}.${fileExt}`;
+    const key = `vijay-jewellery/products/${Date.now()}-${cleanBase}.${fileExt}`;
 
     const cdnUrl = await uploadToR2(optimizedBuffer, key, contentType);
 

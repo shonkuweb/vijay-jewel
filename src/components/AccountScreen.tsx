@@ -371,15 +371,15 @@ export default function AccountScreen({
             </div>
           </div>
 
-          {/* B2B User Badge */}
+          {/* B2C User Badge */}
           <div className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#e5a93c]/50 bg-[#171207] text-[#e5a93c] text-[12px] font-medium shadow-sm">
             <Crown className="w-3.5 h-3.5 fill-[#e5a93c]" />
-            <span>B2B User</span>
+            <span>B2C User</span>
           </div>
         </div>
 
         {/* 2. Sub-Tabs Bar */}
-        <div className="grid grid-cols-5 gap-1 sm:gap-2 mb-4">
+        <div className="grid grid-cols-4 gap-1.5 sm:gap-2 mb-4">
           {/* Tab 1: Profile */}
           <button
             onClick={() => setActiveTab("profile")}
@@ -434,15 +434,6 @@ export default function AccountScreen({
             <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 mb-0.5 sm:mb-1" />
             <span className="text-[10px] sm:text-[11px] truncate">Address</span>
           </button>
-
-          {/* Tab 5: Logout */}
-          <button
-            onClick={onSignOut}
-            className="flex flex-col items-center justify-center py-2 sm:py-2.5 rounded-[12px] sm:rounded-[14px] bg-[#0d0d0d] border border-[#222222] text-rose-400 hover:text-rose-300 hover:border-rose-900/50 transition-all cursor-pointer"
-          >
-            <LogOut className="w-3.5 h-3.5 sm:w-4 sm:h-4 mb-0.5 sm:mb-1" />
-            <span className="text-[10px] sm:text-[11px] truncate">Logout</span>
-          </button>
         </div>
 
         {/* ============================================================= */}
@@ -456,7 +447,7 @@ export default function AccountScreen({
                 i
               </div>
               <p className="text-[#c2a373] text-[12px] leading-relaxed">
-                Your phone number is locked as your permanent B2B account ID. Other details can be updated below.
+                Your phone number is locked as your permanent B2C account ID. Other details can be updated below.
               </p>
             </div>
 
@@ -806,7 +797,7 @@ export default function AccountScreen({
           <div className="animate-fade-in space-y-4">
             <div className="flex items-center justify-between">
               <h4 className="text-white text-[16px] font-serif font-medium">
-                Saved B2B Addresses ({addresses.length})
+                Saved B2C Addresses ({addresses.length})
               </h4>
               <button
                 onClick={() => setIsAddAddressOpen(true)}
@@ -846,7 +837,7 @@ export default function AccountScreen({
                     </p>
 
                     <div className="pt-2 border-t border-[#1a1a1a] flex items-center justify-between text-xs text-[#a0a0a0]">
-                      <span>Contact: {addr.contactName || fullName || "B2B Partner"}</span>
+                      <span>Contact: {addr.contactName || fullName || "B2C Customer"}</span>
                       <span>Phone: +91 {addr.phone}</span>
                     </div>
 
@@ -868,7 +859,7 @@ export default function AccountScreen({
                     No Saved Addresses
                   </h4>
                   <p className="text-[#8e8e93] text-xs pt-1">
-                    Add your business delivery address for faster B2B dispatch.
+                    Add your delivery address for faster B2C dispatch.
                   </p>
                 </div>
 

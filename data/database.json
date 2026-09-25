@@ -5,7 +5,7 @@
       "sku": "928",
       "price": 800,
       "category": "test",
-      "image": "https://pub-ce8688bc6c654bcfb99716f7c9373bcd.r2.dev/fab-creations/products/moon-necklace.jpg",
+      "image": "https://pub-ce8688bc6c654bcfb99716f7c9373bcd.r2.dev/vijay-jewellery/products/moon-necklace.jpg",
       "stock": 10,
       "metal": "Stainless Steel",
       "target": "Women",
@@ -39,7 +39,7 @@
           "name": "test",
           "price": 800,
           "quantity": 4,
-          "image": "https://pub-ce8688bc6c654bcfb99716f7c9373bcd.r2.dev/fab-creations/products/moon-necklace.jpg"
+          "image": "https://pub-ce8688bc6c654bcfb99716f7c9373bcd.r2.dev/vijay-jewellery/products/moon-necklace.jpg"
         }
       ],
       "subtotal": 3200,
@@ -48,7 +48,7 @@
       "total": 3421,
       "status": "Confirmed",
       "id": "ord-1789891508993",
-      "orderNumber": "FC-1001",
+      "orderNumber": "VJ-1001",
       "createdAt": "2026-09-20T08:05:08.993Z"
     }
   ]

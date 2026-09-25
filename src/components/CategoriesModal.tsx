@@ -12,7 +12,7 @@ interface CategoriesModalProps {
   onSelectCategory?: (category: string | null) => void;
 }
 
-const LOGO_R2_URL = "https://pub-ce8688bc6c654bcfb99716f7c9373bcd.r2.dev/fab-creations/logo.png";
+const LOGO_R2_URL = "https://pub-ce8688bc6c654bcfb99716f7c9373bcd.r2.dev/vijay-jewellery/logo.png";
 
 export default function CategoriesModal({
   isOpen,
@@ -61,7 +61,7 @@ export default function CategoriesModal({
             <div className="w-9 h-9 rounded-full overflow-hidden border border-[#3a2c16] relative shrink-0">
               <Image
                 src={LOGO_R2_URL}
-                alt="Fab Creations"
+                alt="Vijay Jewellery"
                 fill
                 unoptimized
                 onError={(e) => {
@@ -75,7 +75,7 @@ export default function CategoriesModal({
                 Categories
               </h3>
               <p className="text-[#8e8e93] text-[11.5px]">
-                Explore B2B Jewellery Collections
+                Explore B2C Jewellery Collections
               </p>
             </div>
           </div>
@@ -148,7 +148,7 @@ export default function CategoriesModal({
         {/* Modal Footer */}
         <div className="p-3 border-t border-[#1a1a1a] bg-[#0a0a0a] text-center">
           <p className="text-[#777777] text-[11px]">
-            B2B Wholesale Jewelry · Minimum Order: ₹3,000
+            B2C Jewellery Collection
           </p>
         </div>
       </div>

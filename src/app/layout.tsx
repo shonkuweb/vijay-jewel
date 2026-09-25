@@ -11,8 +11,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Fab Creations | B2B Jewellery Portal",
-  description: "Exclusive B2B Jewellery Ecommerce Platform by Fab Creations",
+  title: "Vijay Jewellery | B2C Jewellery Portal",
+  description: "Exclusive B2C Jewellery Ecommerce Platform by Vijay Jewellery",
   icons: {
     icon: "/images/logo.png",
   },

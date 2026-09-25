@@ -56,7 +56,7 @@ export async function POST(req: Request) {
       sku: sku || `${Math.floor(100 + Math.random() * 900)}`,
       price: Number(price),
       category: assignedCategory,
-      image: image || "https://pub-ce8688bc6c654bcfb99716f7c9373bcd.r2.dev/fab-creations/products/moon-necklace.jpg",
+      image: image || "https://pub-ce8688bc6c654bcfb99716f7c9373bcd.r2.dev/vijay-jewellery/products/moon-necklace.jpg",
       stock: Number(stock) || 1,
       metal: metal || "Stainless Steel",
       target: target || "Women",

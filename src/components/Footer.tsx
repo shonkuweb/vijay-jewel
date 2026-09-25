@@ -18,7 +18,7 @@ interface FooterProps {
   onNavigateAccount?: () => void;
 }
 
-const LOGO_R2_URL = "https://pub-ce8688bc6c654bcfb99716f7c9373bcd.r2.dev/fab-creations/logo.png";
+const LOGO_R2_URL = "https://pub-ce8688bc6c654bcfb99716f7c9373bcd.r2.dev/vijay-jewellery/logo.png";
 
 export default function Footer({ onNavigateShop, onNavigateHome, onNavigateAccount }: FooterProps) {
   const router = useRouter();
@@ -62,7 +62,7 @@ export default function Footer({ onNavigateShop, onNavigateHome, onNavigateAccou
           <div className="w-[68px] h-[68px] relative rounded-full overflow-hidden">
             <Image
               src={LOGO_R2_URL}
-              alt="Fab Creations"
+              alt="Vijay Jewellery"
               width={75}
               height={75}
               priority
@@ -155,7 +155,7 @@ export default function Footer({ onNavigateShop, onNavigateHome, onNavigateAccou
                 className="flex items-center gap-2 text-[#d1d5db] hover:text-[#e5a93c] transition-colors cursor-pointer"
               >
                 <ChevronRight className="w-3.5 h-3.5 text-[#e5a93c]" />
-                <span>B2B Portal</span>
+                <span>B2C Portal</span>
               </button>
             </li>
           </ul>
@@ -218,7 +218,7 @@ export default function Footer({ onNavigateShop, onNavigateHome, onNavigateAccou
           {/* Left: Copyright */}
           <div className="space-y-0.5">
             <p className="text-[#8e8e93] text-[12px]">
-              © 2026 Fab Creations
+              © 2026 Vijay Jewellery
             </p>
             <p className="text-[#8e8e93] text-[12px]">
               Presented by <span className="text-[#d1d5db]">ShonkuWEB</span>

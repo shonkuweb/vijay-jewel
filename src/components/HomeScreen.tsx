@@ -35,7 +35,7 @@ interface HomeScreenProps {
   onSelectCategory?: (category: string | null) => void;
 }
 
-const R2_BASE = "https://pub-ce8688bc6c654bcfb99716f7c9373bcd.r2.dev/fab-creations";
+const R2_BASE = "https://pub-ce8688bc6c654bcfb99716f7c9373bcd.r2.dev/vijay-jewellery";
 const LOGO_R2_URL = `${R2_BASE}/logo.png`;
 const HERO_R2_URL = `${R2_BASE}/hero-banner.jpg`;
 
@@ -186,7 +186,7 @@ export default function HomeScreen({
         // ignore
       }
     }
-    setNotification(`Added ${product.name} to cart! (B2B Min: Rs 3000)`);
+    setNotification(`Added ${product.name} to cart!`);
     setTimeout(() => setNotification(null), 3000);
   };
 
@@ -240,7 +240,7 @@ export default function HomeScreen({
         {/* Top Announcement Bar */}
         <div className="w-full py-2 bg-[#000000] border-b border-[#141414] text-center">
           <p className="text-[#e5a93c] text-[12.5px] font-medium tracking-wide">
-            B2B Minimum Order: Rs 3000
+            Vijay Jewellery · Exclusive B2C Collections
           </p>
         </div>
 
@@ -249,12 +249,12 @@ export default function HomeScreen({
           {/* Logo */}
           <div
             onClick={navigateToHome}
-            title="Fab Creations"
+            title="Vijay Jewellery"
             className="w-[48px] h-[48px] relative rounded-full overflow-hidden shrink-0 cursor-pointer transition-transform hover:scale-105"
           >
             <Image
               src={logoSrc}
-              alt="Fab Creations Logo"
+              alt="Vijay Jewellery Logo"
               width={56}
               height={56}
               priority
@@ -293,7 +293,7 @@ export default function HomeScreen({
           <div className="relative w-full h-[225px] sm:h-[235px] rounded-[22px] overflow-hidden border border-[#222222] shadow-[0_8px_30px_rgba(0,0,0,0.85)]">
             <Image
               src={heroSrc}
-              alt="Designed for Every You - Fab Creations"
+              alt="Designed for Every You - Vijay Jewellery"
               fill
               priority
               unoptimized

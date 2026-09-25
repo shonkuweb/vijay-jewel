@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import { Product, Category, Order } from "@/lib/db";
 
-const R2_BASE = "https://pub-ce8688bc6c654bcfb99716f7c9373bcd.r2.dev/fab-creations";
+const R2_BASE = "https://pub-ce8688bc6c654bcfb99716f7c9373bcd.r2.dev/vijay-jewellery";
 const LOGO_R2_URL = `${R2_BASE}/logo.png`;
 
 export default function AdminPage() {
@@ -441,7 +441,7 @@ export default function AdminPage() {
           <div className="w-[100px] h-[100px] relative rounded-full overflow-hidden mb-5">
             <Image
               src={LOGO_R2_URL}
-              alt="Fab Creations Logo"
+              alt="Vijay Jewellery Logo"
               width={110}
               height={110}
               priority
@@ -458,10 +458,10 @@ export default function AdminPage() {
             ADMINISTRATOR ACCESS
           </p>
           <h1 className="text-white text-[22px] font-serif font-medium text-center mb-1">
-            Fab Creations Portal
+            Vijay Jewellery Portal
           </h1>
           <p className="text-[#8e8e93] text-[13px] text-center mb-6">
-            Enter master password to manage your B2B store
+            Enter master password to manage your B2C store
           </p>
 
           <form onSubmit={handleLogin} className="w-full space-y-4">
@@ -501,7 +501,7 @@ export default function AdminPage() {
           </form>
 
           <p className="text-[#666666] text-xs text-center mt-6">
-            Default Password: <code className="text-[#e5a93c]">admin@fab2026</code>
+            Default Password: <code className="text-[#e5a93c]">admin@vijay2026</code>
           </p>
         </div>
       </main>
@@ -527,7 +527,7 @@ export default function AdminPage() {
           <div className="w-9 h-9 relative rounded-full overflow-hidden">
             <Image
               src={LOGO_R2_URL}
-              alt="Fab Creations"
+              alt="Vijay Jewellery"
               width={40}
               height={40}
               unoptimized
@@ -540,7 +540,7 @@ export default function AdminPage() {
           </div>
           <div>
             <h2 className="text-white text-[15px] font-serif font-medium leading-tight">
-              Fab Creations Admin
+              Vijay Jewellery Admin
             </h2>
             <div className="flex items-center gap-1.5 text-[11px] text-[#22c55e]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
@@ -641,7 +641,7 @@ export default function AdminPage() {
                       <th className="py-3 px-4">Item</th>
                       <th className="py-3 px-3">SKU</th>
                       <th className="py-3 px-3">Category</th>
-                      <th className="py-3 px-3">B2B Price</th>
+                      <th className="py-3 px-3">B2C Price</th>
                       <th className="py-3 px-3">Stock</th>
                       <th className="py-3 px-3 text-right">Actions</th>
                     </tr>
@@ -1092,7 +1092,7 @@ export default function AdminPage() {
               {/* Price & Category */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[#a0a0a0] mb-1 font-medium">B2B Price (₹) *</label>
+                  <label className="block text-[#a0a0a0] mb-1 font-medium">B2C Price (₹) *</label>
                   <input
                     type="number"
                     required
