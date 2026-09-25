@@ -50,6 +50,7 @@ export interface DatabaseData {
   products: Product[];
   categories: Category[];
   orders: Order[];
+  adminPassword?: string;
 }
 
 const DB_DIR = process.env.DATABASE_DIR
@@ -66,8 +67,26 @@ const defaultData: DatabaseData = {
   orders: [],
 };
 
-// In-memory RAM cache for 0ms read operations
+// In-memory RAM cache & fast O(1) index maps for ultra-fast response
 let cachedDb: DatabaseData | null = null;
+const productIndex = new Map<string, Product>();
+const categoryProductIndex = new Map<string, Product[]>();
+
+function rebuildIndexes(data: DatabaseData): void {
+  productIndex.clear();
+  categoryProductIndex.clear();
+
+  for (const product of data.products) {
+    productIndex.set(product.id, product);
+    const cat = (product.category || "uncategorized").toLowerCase().trim();
+    const existing = categoryProductIndex.get(cat);
+    if (existing) {
+      existing.push(product);
+    } else {
+      categoryProductIndex.set(cat, [product]);
+    }
+  }
+}
 
 // Ensure database file exists and load into memory
 function getDb(): DatabaseData {
@@ -82,6 +101,7 @@ function getDb(): DatabaseData {
   if (!fs.existsSync(DB_FILE)) {
     fs.writeFileSync(DB_FILE, JSON.stringify(defaultData, null, 2), "utf-8");
     cachedDb = { ...defaultData };
+    rebuildIndexes(cachedDb);
     return cachedDb;
   }
 
@@ -92,7 +112,9 @@ function getDb(): DatabaseData {
       products: Array.isArray(parsed.products) ? parsed.products : [],
       categories: Array.isArray(parsed.categories) ? parsed.categories : [],
       orders: Array.isArray(parsed.orders) ? parsed.orders : [],
+      adminPassword: typeof parsed.adminPassword === "string" ? parsed.adminPassword : undefined,
     };
+    rebuildIndexes(cachedDb);
     return cachedDb;
   } catch {
     cachedDb = {
@@ -100,6 +122,7 @@ function getDb(): DatabaseData {
       categories: [],
       orders: [],
     };
+    rebuildIndexes(cachedDb);
     return cachedDb;
   }
 }
@@ -107,6 +130,7 @@ function getDb(): DatabaseData {
 function saveDb(data: DatabaseData): void {
   // Update RAM cache immediately for 0ms read and consistency
   cachedDb = data;
+  rebuildIndexes(data);
   try {
     if (!fs.existsSync(DB_DIR)) {
       fs.mkdirSync(DB_DIR, { recursive: true, mode: 0o777 });
@@ -128,12 +152,17 @@ function saveDb(data: DatabaseData): void {
 }
 
 // ---------------- PRODUCTS ----------------
-export function getProducts(): Product[] {
-  return getDb().products;
+export function getProducts(category?: string): Product[] {
+  const db = getDb();
+  if (category) {
+    return categoryProductIndex.get(category.toLowerCase().trim()) || [];
+  }
+  return db.products;
 }
 
 export function getProductById(id: string): Product | undefined {
-  return getDb().products.find((p) => p.id === id);
+  getDb();
+  return productIndex.get(id);
 }
 
 export function createProduct(productData: Omit<Product, "id" | "createdAt">): Product {
@@ -247,3 +276,23 @@ export function deleteOrder(id: string): boolean {
   }
   return false;
 }
+
+export function getAdminPassword(): string {
+  const db = getDb();
+  return db.adminPassword || process.env.ADMIN_PASSWORD || "admin@vijay2026";
+}
+
+export function setAdminPassword(newPassword: string): void {
+  const db = getDb();
+  db.adminPassword = newPassword;
+  saveDb(db);
+}
+
+// Eagerly pre-warm in-memory cache on application boot for 0ms first-load latency
+try {
+  getDb();
+} catch {
+  // Graceful fallback during build phase if environment is sandboxed
+}
+
+

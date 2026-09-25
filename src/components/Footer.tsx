@@ -5,9 +5,8 @@ import Image from "next/image";
 import {
   ChevronRight,
   ChevronUp,
-  Facebook,
   Instagram,
-  Youtube,
+  Phone,
 } from "lucide-react";
 
 import { useRouter } from "next/navigation";
@@ -57,9 +56,9 @@ export default function Footer({ onNavigateShop, onNavigateHome, onNavigateAccou
       </svg>
 
       <div className="relative w-full max-w-[440px] mx-auto px-5 z-10 flex flex-col">
-        {/* Brand Logo */}
-        <div className="mb-4">
-          <div className="w-[68px] h-[68px] relative rounded-full overflow-hidden">
+        {/* Brand Logo & Name */}
+        <div className="flex items-center gap-3.5 mb-4">
+          <div className="w-[62px] h-[62px] relative rounded-full overflow-hidden shrink-0 border border-[#e5a93c]/30">
             <Image
               src={LOGO_R2_URL}
               alt="Vijay Jewellery"
@@ -74,6 +73,14 @@ export default function Footer({ onNavigateShop, onNavigateHome, onNavigateAccou
               className="object-contain w-full h-full"
             />
           </div>
+          <div className="flex flex-col">
+            <h3 className="text-white text-[19px] sm:text-[20px] font-sans font-bold tracking-tight leading-tight">
+              Vijay Jewellery Collection
+            </h3>
+            <p className="text-[#e5a93c] text-[10.5px] font-medium tracking-[0.16em] uppercase mt-0.5">
+              Sparkles Beyond Ordinary
+            </p>
+          </div>
         </div>
 
         {/* Brand Description */}
@@ -84,34 +91,26 @@ export default function Footer({ onNavigateShop, onNavigateHome, onNavigateAccou
 
         {/* Social Media Links */}
         <div className="flex items-center gap-3.5 mb-5">
-          {/* Facebook */}
-          <a
-            href="https://facebook.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full border border-[#e5a93c] flex items-center justify-center text-[#e5a93c] hover:bg-[#e5a93c] hover:text-black transition-all"
-          >
-            <Facebook className="w-4 h-4 fill-current" />
-          </a>
-
           {/* Instagram */}
           <a
-            href="https://instagram.com"
+            href="https://www.instagram.com/vijay_jewellerycollections?utm_source=qr&igsi=bjZiNW14azV1ODRv"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Instagram"
+            title="Follow us on Instagram"
             className="w-10 h-10 rounded-full border border-[#e5a93c] flex items-center justify-center text-[#e5a93c] hover:bg-[#e5a93c] hover:text-black transition-all"
           >
             <Instagram className="w-4 h-4" />
           </a>
 
-          {/* YouTube */}
+          {/* Call */}
           <a
-            href="https://youtube.com"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="tel:+917095917492"
+            aria-label="Call Us"
+            title="Call +91 7095917492"
             className="w-10 h-10 rounded-full border border-[#e5a93c] flex items-center justify-center text-[#e5a93c] hover:bg-[#e5a93c] hover:text-black transition-all"
           >
-            <Youtube className="w-4 h-4" />
+            <Phone className="w-4 h-4" />
           </a>
         </div>
 
@@ -179,23 +178,56 @@ export default function Footer({ onNavigateShop, onNavigateHome, onNavigateAccou
                 <span>My Account</span>
               </button>
             </li>
-            {[
-              "Contact Us",
-              "About Us",
-              "Privacy Policy",
-              "Terms & Conditions",
-              "Refund Policy",
-            ].map((item, idx) => (
-              <li key={idx}>
-                <button
-                  type="button"
-                  className="flex items-center gap-2 text-[#d1d5db] hover:text-[#e5a93c] transition-colors cursor-pointer"
-                >
-                  <ChevronRight className="w-3.5 h-3.5 text-[#e5a93c]" />
-                  <span>{item}</span>
-                </button>
-              </li>
-            ))}
+            <li>
+              <button
+                type="button"
+                onClick={() => router.push("/contact")}
+                className="flex items-center gap-2 text-[#d1d5db] hover:text-[#e5a93c] transition-colors cursor-pointer"
+              >
+                <ChevronRight className="w-3.5 h-3.5 text-[#e5a93c]" />
+                <span>Contact Us</span>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={() => router.push("/about")}
+                className="flex items-center gap-2 text-[#d1d5db] hover:text-[#e5a93c] transition-colors cursor-pointer"
+              >
+                <ChevronRight className="w-3.5 h-3.5 text-[#e5a93c]" />
+                <span>About Us</span>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={() => router.push("/privacy-policy")}
+                className="flex items-center gap-2 text-[#d1d5db] hover:text-[#e5a93c] transition-colors cursor-pointer"
+              >
+                <ChevronRight className="w-3.5 h-3.5 text-[#e5a93c]" />
+                <span>Privacy Policy</span>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={() => router.push("/terms-and-conditions")}
+                className="flex items-center gap-2 text-[#d1d5db] hover:text-[#e5a93c] transition-colors cursor-pointer"
+              >
+                <ChevronRight className="w-3.5 h-3.5 text-[#e5a93c]" />
+                <span>Terms & Conditions</span>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={() => router.push("/refund-policy")}
+                className="flex items-center gap-2 text-[#d1d5db] hover:text-[#e5a93c] transition-colors cursor-pointer"
+              >
+                <ChevronRight className="w-3.5 h-3.5 text-[#e5a93c]" />
+                <span>Refund Policy</span>
+              </button>
+            </li>
           </ul>
         </div>
 

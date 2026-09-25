@@ -4,14 +4,16 @@ import { getProducts, createProduct, createCategory } from "@/lib/db";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
-    const products = getProducts();
+    const { searchParams } = new URL(req.url);
+    const category = searchParams.get("category");
+    const products = getProducts(category || undefined);
     return NextResponse.json(
       { success: true, products },
       {
         headers: {
-          "Cache-Control": "public, max-age=10, stale-while-revalidate=59",
+          "Cache-Control": "public, s-maxage=30, stale-while-revalidate=120",
         },
       }
     );

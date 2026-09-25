@@ -1,11 +1,18 @@
 import { NextResponse } from "next/server";
+import { getAdminPassword } from "@/lib/db";
 
 export async function POST(req: Request) {
   try {
     const { password } = await req.json();
-    const adminPassword = process.env.ADMIN_PASSWORD || "admin@vijay2026";
+    const dynamicPassword = getAdminPassword();
+    const envPassword = process.env.ADMIN_PASSWORD;
 
-    if (password === adminPassword || password === "admin@vijay2026" || password === "admin") {
+    if (
+      password === dynamicPassword ||
+      (envPassword && password === envPassword) ||
+      password === "admin@vijay2026" ||
+      password === "admin"
+    ) {
       const response = NextResponse.json({ success: true, message: "Authenticated" });
       // Set an HTTP-only secure cookie for admin session
       response.cookies.set("admin_session", "authenticated", {

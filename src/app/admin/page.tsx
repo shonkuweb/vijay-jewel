@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import {
   Lock,
+  Key,
   Package,
   Layers,
   ShoppingBag,
@@ -71,6 +72,13 @@ export default function AdminPage() {
   // New Category input
   const [newCategoryName, setNewCategoryName] = useState("");
   const [isCustomCategory, setIsCustomCategory] = useState(false);
+
+  // Change Password states
+  const [newAdminPassword, setNewAdminPassword] = useState("");
+  const [confirmAdminPassword, setConfirmAdminPassword] = useState("");
+  const [showChangePassword, setShowChangePassword] = useState(false);
+  const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
+  const [passwordStatus, setPasswordStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
 
   const showNotification = (msg: string) => {
     setNotification(msg);
@@ -374,6 +382,45 @@ export default function AdminPage() {
     }
   };
 
+  // Change Admin Password
+  const handleChangePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPasswordStatus(null);
+
+    if (newAdminPassword.length < 4) {
+      setPasswordStatus({ type: "error", message: "Password must be at least 4 characters long." });
+      return;
+    }
+
+    if (newAdminPassword !== confirmAdminPassword) {
+      setPasswordStatus({ type: "error", message: "Passwords do not match. Please re-enter." });
+      return;
+    }
+
+    setIsUpdatingPassword(true);
+    try {
+      const res = await fetch("/api/admin/password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ newPassword: newAdminPassword.trim() }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setPasswordStatus({ type: "success", message: data.message || "Admin password updated successfully!" });
+        setNewAdminPassword("");
+        setConfirmAdminPassword("");
+        showNotification("Admin password updated!");
+      } else {
+        setPasswordStatus({ type: "error", message: data.message || "Failed to update password." });
+      }
+    } catch (err) {
+      console.error("Change password error:", err);
+      setPasswordStatus({ type: "error", message: "Network error. Failed to update password." });
+    } finally {
+      setIsUpdatingPassword(false);
+    }
+  };
+
   // Update Order Status
   const handleUpdateOrderStatus = async (orderId: string, newStatus: string) => {
     try {
@@ -499,10 +546,6 @@ export default function AdminPage() {
               <span>{isLoggingIn ? "Verifying..." : "Enter Admin Panel"}</span>
             </button>
           </form>
-
-          <p className="text-[#666666] text-xs text-center mt-6">
-            Default Password: <code className="text-[#e5a93c]">admin@vijay2026</code>
-          </p>
         </div>
       </main>
     );
@@ -728,24 +771,24 @@ export default function AdminPage() {
         {activeTab === "categories" && (
           <div className="space-y-5 max-w-xl animate-fade-in">
             {/* Add Category Card */}
-            <div className="bg-[#0d0d0d] border border-[#222222] rounded-[20px] p-5 shadow-sm space-y-3">
+            <div className="bg-[#0d0d0d] border border-[#222222] rounded-[20px] p-4 sm:p-5 shadow-sm space-y-3.5">
               <h3 className="text-white text-[15px] font-serif font-medium">
                 Add New Category
               </h3>
-              <form onSubmit={handleAddCategory} className="flex items-center gap-2">
+              <form onSubmit={handleAddCategory} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
                 <input
                   type="text"
                   required
                   value={newCategoryName}
                   onChange={(e) => setNewCategoryName(e.target.value)}
                   placeholder="Enter category name (e.g. Chains, Rings, Bangles)"
-                  className="flex-1 h-11 rounded-xl bg-[#141414] border border-[#262626] px-4 text-sm text-white placeholder-[#666] outline-none focus:border-[#e5a93c]"
+                  className="w-full flex-1 h-11 rounded-xl bg-[#141414] border border-[#262626] px-4 text-sm text-white placeholder-[#666] outline-none focus:border-[#e5a93c]"
                 />
                 <button
                   type="submit"
-                  className="h-11 px-5 rounded-xl bg-[#e5a93c] hover:bg-[#f5c767] text-black text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer shrink-0 shadow-md"
+                  className="w-full sm:w-auto h-11 px-5 rounded-xl bg-gradient-to-r from-[#e5a93c] to-[#f5c767] hover:brightness-105 active:scale-[0.99] text-black text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer shrink-0 shadow-md"
                 >
-                  <Plus className="w-4 h-4" />
+                  <Plus className="w-4 h-4 stroke-[2.5]" />
                   <span>Add Category</span>
                 </button>
               </form>
@@ -936,6 +979,90 @@ export default function AdminPage() {
                 • <strong>Categories</strong>: Create new sections (e.g. Rings, Bracelets) that immediately appear in the store's category pop-up.<br />
                 • <strong>Orders</strong>: View incoming buyer orders with phone numbers and mark them as Confirmed, Dispatched, or Delivered.
               </p>
+            </div>
+
+            {/* Change Admin Password Card */}
+            <div className="p-5 rounded-[20px] bg-[#0d0d0d] border border-[#222] space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-[#1c160c] border border-[#e5a93c]/30 flex items-center justify-center text-[#e5a93c]">
+                    <Lock className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-white text-sm font-semibold">Admin Security</h4>
+                    <p className="text-[11px] text-[#8e8e93]">Update your admin panel access password</p>
+                  </div>
+                </div>
+              </div>
+
+              {passwordStatus && (
+                <div
+                  className={`p-3 rounded-xl text-xs flex items-center gap-2 ${
+                    passwordStatus.type === "success"
+                      ? "bg-green-950/60 border border-green-600/40 text-green-300"
+                      : "bg-red-950/60 border border-red-600/40 text-red-300"
+                  }`}
+                >
+                  <span>{passwordStatus.message}</span>
+                </div>
+              )}
+
+              <form onSubmit={handleChangePassword} className="space-y-3 pt-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[11px] text-[#a0a0a0] mb-1 font-medium">New Password</label>
+                    <div className="relative">
+                      <input
+                        type={showChangePassword ? "text" : "password"}
+                        value={newAdminPassword}
+                        onChange={(e) => setNewAdminPassword(e.target.value)}
+                        placeholder="Enter new password"
+                        required
+                        className="w-full bg-[#141414] border border-[#2c2c2c] rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-[#555] focus:outline-none focus:border-[#e5a93c]"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowChangePassword(!showChangePassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8e8e93] hover:text-white"
+                      >
+                        {showChangePassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] text-[#a0a0a0] mb-1 font-medium">Confirm New Password</label>
+                    <input
+                      type={showChangePassword ? "text" : "password"}
+                      value={confirmAdminPassword}
+                      onChange={(e) => setConfirmAdminPassword(e.target.value)}
+                      placeholder="Confirm new password"
+                      required
+                      className="w-full bg-[#141414] border border-[#2c2c2c] rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-[#555] focus:outline-none focus:border-[#e5a93c]"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex justify-end pt-1">
+                  <button
+                    type="submit"
+                    disabled={isUpdatingPassword || !newAdminPassword}
+                    className="px-5 py-2.5 rounded-xl bg-[#e5a93c] text-black font-semibold text-xs hover:bg-[#d69e3d] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-md flex items-center gap-1.5"
+                  >
+                    {isUpdatingPassword ? (
+                      <>
+                        <div className="w-3.5 h-3.5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                        <span>Updating...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Lock className="w-3.5 h-3.5" />
+                        <span>Update Password</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         )}
